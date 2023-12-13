@@ -1,3 +1,6 @@
+#ifndef settings_H_
+#define settings_H_
+
 #include <ESPAsyncWebServer.h>
 
 AsyncWebServer server(80);
@@ -12,10 +15,4 @@ const char *ssid = "ESP Web server";
 
 // Defines server and its static IP
 
-// ECHO pulse and duration
-int pulse;
-int distance;
-
-// PIR states
-int pirVal = 0;
-int state = LOW;
+#endif

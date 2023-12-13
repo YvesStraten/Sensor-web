@@ -1,8 +1,4 @@
 #include <Arduino.h>
-#include <WiFi.h>
-#include <ESPAsyncWebServer.h>
-#include <SPIFFS.h>
-#include "settings.h"
 #include "server.h"
 
 // Defines pins
@@ -10,6 +6,14 @@ int trigPin = 26;
 int echoPin = 36;
 int pirPin = 39;
 int ledPin = 12;
+
+// ECHO pulse and duration
+int pulse;
+int distance;
+
+// PIR states
+int pirVal = 0;
+int state = LOW;
 
 // Sets pins to the right modes
 void pinSetup()
@@ -24,7 +28,7 @@ void setup()
 {
   initWifi();
   pinSetup();
-  webServer();
+  webServer(pulse, distance);
 }
 
 // Gets distance from ultrasonic sensor

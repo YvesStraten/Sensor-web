@@ -3,8 +3,6 @@
 #include <SPIFFS.h>
 #include "settings.h"
 
-int distance;
-
 void initWifi()
 {
   Serial.begin(9600);
@@ -19,7 +17,7 @@ void initWifi()
 /* Server functions:
 - Serve static files
 - Allow for data requests */
-void webServer()
+void webServer(int state, int distance)
 {
   server.serveStatic("/", SPIFFS, "/").setDefaultFile("index.html");
 

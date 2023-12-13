@@ -1,4 +1,4 @@
-void webServer();
+void webServer(int state, int distance);
 
 void initWifi();
 
