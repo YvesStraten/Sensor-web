@@ -2,7 +2,6 @@
 #include <WiFi.h>
 #include <ESPAsyncWebServer.h>
 #include <SPIFFS.h>
-#include <ArduinoJson.h>
 
 // const char* ssid = "ESP Web server";
 const char *ssid = "test123";
@@ -12,12 +11,6 @@ AsyncWebServer server(80);
 IPAddress local_ip(192, 168, 1, 1);
 IPAddress gateway(192, 168, 1, 1);
 IPAddress subnet(255, 255, 255, 0);
-
-// Initialize json
-StaticJsonDocument<32> pir;
-StaticJsonDocument<32> soundData;
-String pirString;
-String soundDataString;
 
 int trigPin = 26;
 int echoPin = 36;
@@ -63,13 +56,11 @@ void setup()
 
   server.serveStatic("/", SPIFFS, "/").setDefaultFile("index.html");
 
-  server.on("/data/pir", HTTP_GET, [&](AsyncWebServerRequest *request)
-            { request->send(200, "application/json", pirString); });
+  server.on("/data/pir", HTTP_GET, [](AsyncWebServerRequest *request)
+            { request->send(200, "application/json", "test"); });
 
-  server.on("/data/sound", HTTP_GET, [&](AsyncWebServerRequest *request)
-            {
-              request->send(200, "application/json", soundDataString);
-            });
+  server.on("/data/sound", HTTP_GET, [](AsyncWebServerRequest *request)
+            { request->send(200, "application/json", "test"); });
 
   server.begin();
   Serial.println("HTTP server started");
@@ -86,8 +77,6 @@ void loop()
 
   pulse = pulseIn(echoPin, HIGH);
   distance = pulse * 0.034 / 2;
-  soundData["value"] = distance;
-  // soundDataString = soundData.as<const char*>();
 
   // Serial.print("Duration: ");
   // Serial.println(distance);
@@ -107,7 +96,6 @@ void loop()
     if (state == LOW)
     {
       Serial.println("MOTION");
-      pir["value"] = 1;
       state = HIGH;
     }
   }
@@ -116,10 +104,27 @@ void loop()
     if (state == HIGH)
     {
       Serial.println("NO MOTION");
-      pir["value"] = 0;
       state = LOW;
     }
   }
-
-  // pirString = pir.as<const char*>();
 }
+
+// String pirstring(int value)
+// {
+//   String ptr = "{";
+//   ptr += "value:";
+//   ptr += value;
+//   ptr += "}";
+
+//   return ptr
+// }
+
+// String soundString(long reading)
+// {
+//   String ptr = "{";
+//   ptr += "value:";
+//   ptr += reading;
+//   ptr += "}";
+
+//   return ptr
+// }
