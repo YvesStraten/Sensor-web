@@ -2,72 +2,33 @@
 #include <WiFi.h>
 #include <ESPAsyncWebServer.h>
 #include <SPIFFS.h>
+#include "settings.h"
+#include "server.h"
 
-// const char* ssid = "ESP Web server";
-const char *ssid = "test123";
-const char *pass = "12345678";
-
-AsyncWebServer server(80);
-IPAddress local_ip(192, 168, 1, 1);
-IPAddress gateway(192, 168, 1, 1);
-IPAddress subnet(255, 255, 255, 0);
-
+// Defines pins
 int trigPin = 26;
 int echoPin = 36;
 int pirPin = 39;
 int ledPin = 12;
 
-// ECHO pulse and duration
-int pulse;
-int distance;
-
-// PIR state
-int pirVal = 0;
-int state = LOW;
-
-void initWifi()
+// Sets pins to the right modes
+void pinSetup()
 {
-  WiFi.begin(ssid, pass);
-  // WiFi.softAPConfig(local_ip, gateway, subnet);
-  delay(100);
-  Serial.println(WiFi.localIP().toString().c_str());
-}
-
-void readFiles()
-{
-  if (!SPIFFS.begin(true))
-  {
-    Serial.println("Error mounting SPIFFS!");
-    return;
-  }
-}
-
-void setup()
-{
-  Serial.begin(9600);
-  delay(5000);
-  Serial.println("Loading AP and server");
-  initWifi();
-
   pinMode(ledPin, OUTPUT);
   pinMode(pirPin, INPUT);
   pinMode(trigPin, OUTPUT);
   pinMode(echoPin, INPUT);
+};
 
-  server.serveStatic("/", SPIFFS, "/").setDefaultFile("index.html");
-
-  server.on("/data/pir", HTTP_GET, [](AsyncWebServerRequest *request)
-            { request->send(200, "application/json", "test"); });
-
-  server.on("/data/sound", HTTP_GET, [](AsyncWebServerRequest *request)
-            { request->send(200, "application/json", "test"); });
-
-  server.begin();
-  Serial.println("HTTP server started");
-  readFiles();
+void setup()
+{
+  initWifi();
+  pinSetup();
+  webServer();
 }
 
-void loop()
+// Gets distance from ultrasonic sensor
+void getDistance()
 {
   digitalWrite(trigPin, LOW);
   delayMicroseconds(2);
@@ -89,13 +50,16 @@ void loop()
   }
 
   digitalWrite(ledPin, LOW);
+}
 
+// Get the motion state of the PIR
+void getMotion()
+{
   pirVal = digitalRead(pirPin);
   if (pirVal == HIGH)
   {
     if (state == LOW)
     {
-      Serial.println("MOTION");
       state = HIGH;
     }
   }
@@ -103,28 +67,13 @@ void loop()
   {
     if (state == HIGH)
     {
-      Serial.println("NO MOTION");
       state = LOW;
     }
   }
 }
 
-// String pirstring(int value)
-// {
-//   String ptr = "{";
-//   ptr += "value:";
-//   ptr += value;
-//   ptr += "}";
-
-//   return ptr
-// }
-
-// String soundString(long reading)
-// {
-//   String ptr = "{";
-//   ptr += "value:";
-//   ptr += reading;
-//   ptr += "}";
-
-//   return ptr
-// }
+void loop()
+{
+  getDistance();
+  getMotion();
+}

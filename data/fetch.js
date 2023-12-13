@@ -1,13 +1,14 @@
 const soundText = document.getElementById("sound_value");
 const pirText = document.getElementById("pir_value");
 
-const fetchData = async () => {
-    const pirData = fetch("/data/pir").then(async (data) => await data.json());
-    const soundData = fetch("/data/sound").then(async (data) => await data.json());
+setInterval(() => {
+    fetch("/data/pir").then(res => res.json()).then(data => {
+        console.log(data);
+        pirText.textContent = data.value;
+    })
 
-    return pirData, soundData;
-}
-
-setInterval(() => fetchData(), 1000);
-pirText.innerHTML = pirData;
-soundText.innerHTML = soundData;
+    fetch("/data/sound").then(res => res.json()).then(data => {
+        console.log(data);
+        soundText.textContent = data.value;
+    })
+}, 1000);

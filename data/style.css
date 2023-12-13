@@ -1,7 +1,12 @@
+body {
+    background-color: grey;
+    color: whitesmoke;
+}
+
 #main_title {
     display: flex;
     justify-content: center;
-    border: 2px solid black;
+    border: 2px solid white;
 
     margin-left: auto;
     margin-right: auto;
@@ -9,6 +14,7 @@
 
     border-radius: 8px;
     margin-bottom: 5%;
+    box-shadow: -10px 5px;
 }
 
 .data_locations {
@@ -18,12 +24,13 @@
     justify-content: center;
     align-items: center;
     
-    border: 2px solid black;
+    border: 2px solid white;
     width: 30%;
     margin-bottom: 3%;
     margin-right: auto;
     margin-left: auto;
     border-radius: 8px;
+    box-shadow: -10px 5px;
 }
 
 .main_div {
@@ -39,6 +46,12 @@
     display: flex;
     justify-content: space-around;
     padding: 0 5% 0 5%;
-    border: 2px solid black;
+    border: 2px solid white;
     border-radius: 8px;
+    box-shadow: -10px 5px;
+}
+
+.data {
+    margin-right: auto;
+    margin-left: auto;
 }
