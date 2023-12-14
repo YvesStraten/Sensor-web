@@ -35,6 +35,7 @@ void getMotion(PinStates &states)
     if (states.pirState == LOW)
     {
       states.pirState = HIGH;
+      delay(1000);
     }
   }
   else
@@ -42,6 +43,7 @@ void getMotion(PinStates &states)
     if (states.pirState == HIGH)
     {
       states.pirState = LOW;
+      delay(1000);
     }
   }
 }

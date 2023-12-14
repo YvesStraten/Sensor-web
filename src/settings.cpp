@@ -7,9 +7,9 @@ int echoPin = 36;
 int pirPin = 39;
 int ledPin = 12;
 
-const char *ssid = "ESP Web server";
-// const char *ssid = "test123";
-// const char *pass = "12345678";
+// const char *ssid = "ESP Web server";
+const char *ssid = "test123";
+const char *pass = "12345678";
 
 void pinSetup()
 {
@@ -18,3 +18,15 @@ void pinSetup()
   pinMode(trigPin, OUTPUT);
   pinMode(echoPin, INPUT);
 };
+
+void initWifi()
+{
+  Serial.begin(9600);
+  delay(5000);
+  Serial.println("Loading AP and server");
+  WiFi.begin(ssid, pass);
+  // WiFi.softAP(ssid);
+  // WiFi.softAPConfig(local_ip, gateway, subnet);
+  delay(100);
+  Serial.println(WiFi.broadcastIP().toString().c_str());
+}

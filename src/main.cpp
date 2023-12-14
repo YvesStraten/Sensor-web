@@ -14,17 +14,6 @@ PinStates states;
 String Json1;
 String Json2;
 
-void initWifi()
-{
-  Serial.begin(9600);
-  delay(5000);
-  Serial.println("Loading AP and server");
-  WiFi.softAP(ssid);
-  WiFi.softAPConfig(local_ip, gateway, subnet);
-  delay(100);
-  Serial.println(WiFi.broadcastIP().toString().c_str());
-}
-
 /* Server functions:
 - Serve static files
 - Allow for data requests */
