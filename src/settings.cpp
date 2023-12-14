@@ -1,9 +1,5 @@
 #include "settings.h"
-
-AsyncWebServer server(80);
-IPAddress local_ip(192, 168, 1, 1);
-IPAddress gateway(192, 168, 1, 1);
-IPAddress subnet(255, 255, 255, 0);
+#include <ESPAsyncWebServer.h>
 
 // Defines pins
 int trigPin = 26;
@@ -14,3 +10,11 @@ int ledPin = 12;
 const char *ssid = "ESP Web server";
 // const char *ssid = "test123";
 // const char *pass = "12345678";
+
+void pinSetup()
+{
+  pinMode(ledPin, OUTPUT);
+  pinMode(pirPin, INPUT);
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+};
