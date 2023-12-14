@@ -1,18 +1,18 @@
-#ifndef settings_H_
-#define settings_H_
-
+#ifndef SETTINGS_H
+#define SETTINGS_H
 #include <ESPAsyncWebServer.h>
 
-AsyncWebServer server(80);
-IPAddress local_ip(192, 168, 1, 1);
-IPAddress gateway(192, 168, 1, 1);
-IPAddress subnet(255, 255, 255, 0);
+extern AsyncWebServer server;
+extern IPAddress local_ip;
+extern IPAddress gateway;
+extern IPAddress subnet;
 
+// Defines pins
+extern int trigPin;
+extern int echoPin;
+extern int pirPin;
+extern int ledPin;
 
-const char *ssid = "ESP Web server";
-// const char *ssid = "test123";
-// const char *pass = "12345678";
-
-// Defines server and its static IP
-
+extern const char *ssid;
+// const char *pass;
 #endif

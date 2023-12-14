@@ -1,5 +1,9 @@
-void webServer(int state, int distance);
+#pragma once
+#include "pins.h"
 
-void initWifi();
-
-void readFiles();
+namespace ESP32Server {
+  void initWifi();
+  void readFiles();
+  void webServer(String Json1, String Json2);
+  String JsonFactory(int component, PinStates &state);
+}
