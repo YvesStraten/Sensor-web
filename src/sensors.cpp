@@ -16,14 +16,6 @@ void getDistance(PinStates &states)
   // Serial.print("Duration: ");
   // Serial.println(distance);
   delay(1000);
-
-  if (states.distance < 200)
-  {
-    digitalWrite(ledPin, HIGH);
-    delay(1000);
-  }
-
-  digitalWrite(ledPin, LOW);
 }
 
 // Get the motion state of the PIR
