@@ -17,6 +17,11 @@ body {
     box-shadow: -10px 5px;
 }
 
+h1 {
+    margin-right: auto;
+    margin-left: auto;
+}
+
 .data_locations {
     display: flex;
     flex-wrap: nowrap;
@@ -44,7 +49,7 @@ body {
 .item_div {
     flex-direction: column;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     padding: 0 5% 0 5%;
     border: 2px solid white;
     border-radius: 8px;
@@ -54,4 +59,30 @@ body {
 .data {
     margin-right: auto;
     margin-left: auto;
+}
+
+@media only screen and (max-width: 1030px){
+    .main_div {
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
+
+     .item_div {
+        justify-content: center;
+        width: 10%;
+        margin-bottom: 3%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .data_locations {
+        justify-content: center;
+        justify-items: center;
+        flex-wrap: wrap;
+
+    }
+
+    #main_title {
+        width: 40%;
+    } 
 }
