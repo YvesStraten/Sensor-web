@@ -46,7 +46,7 @@ char *jsonFactory(int component, PinStates &state)
   // Empty array (string)
   char *json;
   /* Allocates 32 bytes to the array while casting it back to a char**/
-  json = (char *)malloc(32 * sizeof(json));
+  json = (char *)malloc(32);
 
   if (json == NULL)
   {
