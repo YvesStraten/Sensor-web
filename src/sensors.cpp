@@ -54,7 +54,6 @@ char *jsonFactory(int component, PinStates &state)
     return NULL;
   }
   
-
   // We know its the PIR then
   if (component == 0)
   {
