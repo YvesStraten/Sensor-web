@@ -48,6 +48,13 @@ char *jsonFactory(int component, PinStates &state)
   /* Allocates 32 bytes to the array while casting it back to a char**/
   json = (char *)malloc(32 * sizeof(json));
 
+  if (json == NULL)
+  {
+    Serial.println("Malloc failed");
+    return NULL;
+  }
+  
+
   // We know its the PIR then
   if (component == 0)
   {
