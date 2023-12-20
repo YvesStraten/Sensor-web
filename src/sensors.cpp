@@ -1,5 +1,6 @@
 #include "sensors.h"
 #include "settings.h"
+#include <iostream>
 
 // Gets distance from ultrasonic sensor
 void getDistance(PinStates &states)
@@ -38,4 +39,33 @@ void getMotion(PinStates &states)
       delay(1000);
     }
   }
+}
+
+char *jsonFactory(int component, PinStates &state)
+{
+  // Empty array (string)
+  char *json;
+  /* Allocates 32 bytes to the array while casting it back to a char**/
+  json = (char *)malloc(32 * sizeof(json));
+
+  // We know its the PIR then
+  if (component == 0)
+  {
+    // Motion
+    if (state.pirState == LOW)
+    {
+      snprintf(json, 32, "{ \"value\": %d }", 1);
+    }
+    else
+    // No motion
+    {
+      snprintf(json, 32, "{ \"value\": %d }", 0);
+    }
+  }
+  else
+  {
+    // Distance of sensor
+    snprintf(json, 32, "{ \"value\": %d }", state.distance);
+  }
+  return json;
 }

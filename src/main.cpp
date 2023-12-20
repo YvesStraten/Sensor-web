@@ -38,31 +38,6 @@ void readFiles()
   }
 }
 
-String JsonFactory(int component, PinStates &state)
-{
-  String ptr;
-  ptr = "{";
-  ptr += "\"value\": ";
-  // We know its the PIR then
-  if (component == 0)
-  {
-    if (state.pirState == LOW)
-    {
-      ptr += "\"1\"";
-    }
-    else
-    {
-      ptr += "\"0\"";
-    }
-  } else {
-    ptr += "\"";
-    ptr += state.distance;
-    ptr += "\"";
-  }
-    ptr += "}";
-  return ptr;
-}
-
 void setup()
 {
   initWifi();
@@ -76,6 +51,6 @@ void loop()
 {
   getDistance(states);
   getMotion(states);
-  Json1 = JsonFactory(0, states);
-  Json2 = JsonFactory(1, states);
+  Json1 = jsonFactory(0, states);
+  Json2 = jsonFactory(1, states);
 }
