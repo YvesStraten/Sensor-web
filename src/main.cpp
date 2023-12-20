@@ -8,8 +8,8 @@
 AsyncWebServer server(80);
 
 PinStates states;
-String Json1;
-String Json2;
+char* Json1;
+char* Json2;
 
 /* Server functions:
 - Serve static files
