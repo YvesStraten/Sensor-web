@@ -46,32 +46,30 @@ char *jsonFactory(int component, PinStates &state)
   // Empty array (string)
   char *json;
   /* Allocates 32 bytes to the array while casting it back to a char**/
-  json = (char *)malloc(32);
-
-  if (json == NULL)
-  {
-    Serial.println("Malloc failed");
-    return NULL;
-  }
-  
   // We know its the PIR then
   if (component == 0)
   {
+    json = (char *)malloc(16 + sizeof(state.pirState));
     // Motion
     if (state.pirState == LOW)
     {
-      snprintf(json, 32, "{ \"value\": %d }", 1);
+      snprintf(json, 16 + sizeof(state.pirState), "{ \"value\": %d }", 1);
     }
     else
     // No motion
     {
-      snprintf(json, 32, "{ \"value\": %d }", 0);
+      snprintf(json, 16 + sizeof(state.pirState), "{ \"value\": %d }", 0);
     }
   }
   else
   {
+    json = (char *)malloc(16 + sizeof(state.distance));
     // Distance of sensor
-    snprintf(json, 32, "{ \"value\": %d }", state.distance);
+    snprintf(json, 16 + sizeof(state.distance), "{ \"value\": %d }", state.distance);
   }
+  if(json == NULL){
+    Serial.println("Malloc failed");
+  }
+  // Serial.println(json);
   return json;
 }
