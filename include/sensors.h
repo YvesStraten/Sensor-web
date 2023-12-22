@@ -14,6 +14,6 @@ struct PinStates
 
 void getDistance(PinStates &states);
 void getMotion(PinStates &states);
-char* jsonFactory(int component, PinStates &state);
+char* jsonFactory(PinStates &state);
 
 #endif

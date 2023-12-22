@@ -41,14 +41,13 @@ void getMotion(PinStates &states)
   }
 }
 
-char *jsonFactory(int component, PinStates &state)
+char *jsonFactory(PinStates &state)
 {
   // Empty array (string)
   char *json;
   int size = 42 + sizeof(state.pirState) + sizeof(state.distance);
 
   // We know its the PIR then
-  if (component == 0)
   {
     json = (char *)malloc(size);
     // Motion
@@ -61,13 +60,12 @@ char *jsonFactory(int component, PinStates &state)
     {
       snprintf(json, size, "{ \"sensors\": { \"pir\": %d, \"sound\": %d } }", 0, state.distance);
     }
-  }
 
-  if (json == NULL)
-  {
-    Serial.println("Malloc failed");
-  }
+    if (json == NULL)
+    {
+      Serial.println("Malloc failed");
+    }
 
-  // Serial.println(json);
-  return json;
-}
+    // Serial.println(json);
+    return json;
+  }

@@ -47,5 +47,5 @@ void loop()
 {
   getDistance(states);
   getMotion(states);
-  json = jsonFactory(0, states);
+  json = jsonFactory(states);
 }
