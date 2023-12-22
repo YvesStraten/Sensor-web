@@ -8,8 +8,7 @@
 AsyncWebServer server(80);
 
 PinStates states;
-char* json1;
-char* json2;
+char* json;
 
 /* Server functions:
 - Serve static files
@@ -18,11 +17,8 @@ void webServer()
 {
   server.serveStatic("/", SPIFFS, "/").setDefaultFile("index.html");
 
-  server.on("/data/pir", HTTP_GET, [&](AsyncWebServerRequest *request)
-            { request->send(200, "application/json", json1); });
-
-  server.on("/data/sound", HTTP_GET, [&](AsyncWebServerRequest *request)
-            {  request->send(200, "application/json", json2); });
+  server.on("/api/data", HTTP_GET, [&](AsyncWebServerRequest *request)
+            { request->send(200, "application/json", json); });
 
   server.begin();
   Serial.println("HTTP server started");
@@ -51,6 +47,5 @@ void loop()
 {
   getDistance(states);
   getMotion(states);
-  json1 = jsonFactory(0, states);
-  json2 = jsonFactory(1, states);
+  json = jsonFactory(0, states);
 }
