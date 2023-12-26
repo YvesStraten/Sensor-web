@@ -1,4 +1,5 @@
 #include "sensors.h"
+#include "esp32-hal-gpio.h"
 #include "settings.h"
 #include <iostream>
 
@@ -28,6 +29,7 @@ void getMotion(PinStates &states)
     if (states.pirState == LOW)
     {
       states.pirState = HIGH;
+			digitalWrite(12, HIGH);
       delay(1000);
     }
   }
@@ -36,6 +38,7 @@ void getMotion(PinStates &states)
     if (states.pirState == HIGH)
     {
       states.pirState = LOW;
+			digitalWrite(12, LOW);
       delay(1000);
     }
   }
@@ -69,3 +72,4 @@ char *jsonFactory(PinStates &state)
     // Serial.println(json);
     return json;
   }
+}
